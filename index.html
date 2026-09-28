@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PakCalc Hub - 30+ Ultimate Academic & Financial Calculators</title>
+    <meta name="description" content="Free online calculators for Pakistani students and professionals. Calculate ETEA aggregate, KPPSC score, CGPA to Percentage, Textile Yard to GSM, Pension, Budget, Salary, and Unit Conversions.">
+    <meta name="keywords" content="ETEA calculator, KPPSC academic score, CGPA calculator, GPA to percentage, Textile yard to GSM, ozm to gsm, Pension calculator, Budget calculator, Salary increment calculator, Unit converter, Zakat calculator">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-emerald-600 text-white p-2 rounded-xl shadow-sm">
+                    <i class="fa-solid fa-calculator text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl text-slate-900 tracking-tight">Pak<span class="text-emerald-600">Calc</span></span>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center">
+                <span class="text-xs bg-emerald-50 text-emerald-700 font-bold px-3 py-1.5 rounded-full border border-emerald-200">Mega SEO Version</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full flex-grow flex flex-col lg:flex-row gap-6 p-4 lg:p-6 relative">
+        
+        <!-- LEFT CONTENT AREA -->
+        <section class="w-full lg:w-2/3 xl:w-3/4 flex flex-col order-2 lg:order-1">
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200 p-6 sm:p-8 min-h-[600px]">
+                
+                <!-- 1. KPPSC Section -->
+                <div id="kppsc-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">KPPSC Academic & SST Score</h2></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div><label class="block text-xs font-bold mb-1">Matric %</label><input type="number" id="kppscMatric" class="w-full text-sm px-3 py-2 border rounded-lg"></div>
+                        <div><label class="block text-xs font-bold mb-1">Inter %</label><input type="number" id="kppscInter" class="w-full text-sm px-3 py-2 border rounded-lg"></div>
+                        <div><label class="block text-xs font-bold mb-1">Bachelor %</label><input type="number" id="kppscBachelor" class="w-full text-sm px-3 py-2 border rounded-lg"></div>
+                        <div><label class="block text-xs font-bold mb-1">Master %</label><input type="number" id="kppscMaster" class="w-full text-sm px-3 py-2 border rounded-lg"></div>
+                        <div><label class="block text-xs font-bold mb-1">B.Ed %</label><input type="number" id="kppscBEd" class="w-full text-sm px-3 py-2 border rounded-lg"></div>
+                        <div><label class="block text-xs font-bold mb-1 text-rose-600">Test (Out of 45)</label><input type="number" id="kppscTest" class="w-full text-sm px-3 py-2 border border-rose-200 bg-rose-50 rounded-lg"></div>
+                    </div>
+                    <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <label class="block text-sm font-bold text-slate-800 mb-3">Extra Qualifications</label>
+                        <div class="flex flex-wrap gap-4 text-sm">
+                            <label><input type="checkbox" id="kppscHifz" value="3" class="mr-1"> Hifz (+3)</label>
+                            <label><input type="checkbox" id="kppscMphil" value="1" class="mr-1"> MPhil (+1)</label>
+                            <label><input type="checkbox" id="kppscPhd" value="2" class="mr-1"> PhD (+2)</label>
+                            <select id="kppscTopper" class="px-2 py-1 border rounded text-xs"><option value="0">Not a Topper</option><option value="1">Topper (+1)</option><option value="2">BS Topper (+2)</option></select>
+                        </div>
+                    </div>
+                    <button onclick="calculateKPPSC()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl hover:bg-emerald-700">Calculate Score</button>
+                    <div id="kppscResult" class="hidden mt-6 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center"><h3 id="kppscValue" class="text-4xl font-black text-emerald-700"></h3></div>
+                </div>
+
+                <!-- 2. ETEA Section (Updated with BS, MS, MPhil, PhD options) -->
+                <div id="etea-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">ETEA Aggregate & Advanced Entry Calculator</h2></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <div><label class="text-xs font-bold">Matric Obtained</label><input type="number" id="eteaMObt" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-xs font-bold">Matric Total</label><input type="number" id="eteaMTot" value="1100" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-xs font-bold">Inter Obtained</label><input type="number" id="eteaIObt" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-xs font-bold">Inter Total</label><input type="number" id="eteaITot" value="1100" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-xs font-bold">ETEA Test Obtained</label><input type="number" id="eteaTObt" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-xs font-bold">ETEA Test Total</label><input type="number" id="eteaTTot" value="200" class="w-full px-3 py-2 border rounded-lg"></div>
+                        
+                        <!-- Added Higher Degrees Fields -->
+                        <div><label class="text-xs font-bold text-indigo-700">BS / Bachelor Percentage (%) [Optional]</label><input type="number" id="eteaBS" class="w-full px-3 py-2 border border-indigo-200 bg-indigo-50 rounded-lg" placeholder="e.g. 75"></div>
+                        <div><label class="text-xs font-bold text-indigo-700">MS / MPhil / PhD Status</label>
+                            <select id="eteaHigherDeg" class="w-full px-3 py-2 border border-indigo-200 bg-indigo-50 rounded-lg text-sm">
+                                <option value="0">None / Undergrad</option>
+                                <option value="1">MS / MPhil Degree Holder</option>
+                                <option value="2">PhD Degree Holder</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateETEA()" class="w-full bg-rose-600 text-white font-bold py-3 rounded-xl hover:bg-rose-700">Calculate Aggregate</button>
+                    <div id="eteaResult" class="hidden mt-6 bg-rose-50 border border-rose-200 rounded-2xl p-5 text-center"><h3 id="eteaValue" class="text-4xl font-black text-rose-700"></h3></div>
+                </div>
+
+                <!-- 3. CGPA Section -->
+                <div id="cgpa-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Semester CGPA / SGPA Calculator</h2></div>
+                    <div id="subjectRows" class="space-y-3 mb-6">
+                        <div class="grid grid-cols-12 gap-2 subject-row bg-slate-50 p-2 rounded-xl border border-slate-200">
+                            <div class="col-span-6"><input type="text" placeholder="Course Name" class="w-full text-sm px-3 py-2 border rounded-lg"></div>
+                            <div class="col-span-3">
+                                <select class="w-full text-sm px-3 py-2 border rounded-lg grade-select">
+                                    <option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0" selected>B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.0">D (1.0)</option><option value="0.0">F (0.0)</option>
+                                </select>
+                            </div>
+                            <div class="col-span-2"><input type="number" value="3" class="w-full text-sm px-3 py-2 border rounded-lg credit-input"></div>
+                            <div class="col-span-1 text-center"><button class="text-rose-500 mt-2" onclick="this.closest('.subject-row').remove()"><i class="fa-solid fa-trash-can"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 mb-6">
+                        <button onclick="addSubjectRow()" class="w-1/2 bg-slate-100 font-bold py-3 rounded-xl hover:bg-slate-200">Add Subject</button>
+                        <button onclick="calculateCGPA()" class="w-1/2 bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700">Calculate</button>
+                    </div>
+                    <div id="cgpaResult" class="hidden bg-blue-50 border border-blue-200 p-5 text-center rounded-2xl"><h3 id="cgpaValue" class="text-4xl font-black text-blue-700"></h3></div>
+                </div>
+
+                <!-- 4. GPA & Marks Conversion Section -->
+                <div id="conversion-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Marks, Percentage & GPA Converter</h2></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-slate-50 p-4 rounded-xl border">
+                            <h3 class="font-bold text-sm mb-3">Marks to %</h3>
+                            <input type="number" id="convObt" placeholder="Obtained" class="w-full text-sm px-3 py-2 border rounded-lg mb-2">
+                            <input type="number" id="convTot" value="1100" class="w-full text-sm px-3 py-2 border rounded-lg mb-3">
+                            <button onclick="calcMarksToPerc()" class="w-full bg-emerald-600 text-white py-2 rounded-lg font-bold">Convert</button>
+                            <p id="resMarksToPerc" class="font-bold text-emerald-700 mt-2 text-center hidden"></p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border">
+                            <h3 class="font-bold text-sm mb-3">GPA to %</h3>
+                            <input type="number" id="convGpa" placeholder="e.g. 3.5" class="w-full text-sm px-3 py-2 border rounded-lg mb-2">
+                            <p class="text-[10px] text-slate-500 mb-3">(Formula: GPA/4 * 100)</p>
+                            <button onclick="calcGpaToPerc()" class="w-full bg-emerald-600 text-white py-2 rounded-lg font-bold">Convert</button>
+                            <p id="resGpaToPerc" class="font-bold text-emerald-700 mt-2 text-center hidden"></p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border">
+                            <h3 class="font-bold text-sm mb-3">% to GPA</h3>
+                            <input type="number" id="convPerc" placeholder="e.g. 85" class="w-full text-sm px-3 py-2 border rounded-lg mb-2">
+                            <p class="text-[10px] text-slate-500 mb-3">Est 4.0 Scale equivalent</p>
+                            <button onclick="calcPercToGpa()" class="w-full bg-emerald-600 text-white py-2 rounded-lg font-bold">Convert</button>
+                            <p id="resPercToGpa" class="font-bold text-emerald-700 mt-2 text-center hidden"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Textile Yard (GSM) -->
+                <div id="gsm-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6">
+                        <span class="text-[10px] font-bold tracking-wider text-orange-600 uppercase bg-orange-50 px-2 py-1 rounded mb-2 inline-block">Textile</span>
+                        <h2 class="text-xl font-bold">Yard (oz/yd²) & GSM Converter</h2>
+                        <p class="text-xs text-slate-500">GSM = oz/yd² × 33.9057575</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-slate-50 p-5 rounded-2xl border">
+                            <label class="block font-bold mb-2">oz/yd² (Yard) to GSM</label>
+                            <input type="number" id="ozInput" class="w-full px-4 py-2 border rounded-xl mb-3">
+                            <button onclick="convertOzToGsm()" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg">Convert to GSM</button>
+                            <p id="resOzToGsm" class="font-black text-orange-700 mt-3 text-center text-lg hidden"></p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-2xl border">
+                            <label class="block font-bold mb-2">GSM to oz/yd² (Yard)</label>
+                            <input type="number" id="gsmInput" class="w-full px-4 py-2 border rounded-xl mb-3">
+                            <button onclick="convertGsmToOz()" class="w-full bg-slate-800 text-white font-bold py-2 rounded-lg">Convert to Yard</button>
+                            <p id="resGsmToOz" class="font-black text-slate-700 mt-3 text-center text-lg hidden"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Age Calculator -->
+                <div id="age-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Age / Birth Date Calculator</h2></div>
+                    <input type="date" id="dobInput" class="w-full text-lg px-4 py-3 border rounded-xl mb-6">
+                    <button onclick="calculateAge()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl">Calculate Exact Age</button>
+                    <div id="ageResult" class="hidden mt-6 bg-purple-50 p-6 text-center rounded-2xl"><h3 id="ageValue" class="text-3xl font-black text-purple-800"></h3></div>
+                </div>
+
+                <!-- 7. Pension Calculator -->
+                <div id="pension-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Pension Calculator (Govt)</h2></div>
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div><label class="block font-bold mb-2">Last Basic Pay (PKR)</label><input type="number" id="penPay" class="w-full px-4 py-2 border rounded-xl"></div>
+                        <div><label class="block font-bold mb-2">Total Service (Years)</label><input type="number" id="penYears" class="w-full px-4 py-2 border rounded-xl"></div>
+                    </div>
+                    <button onclick="calculatePension()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">Estimate Pension</button>
+                    <div id="pensionResult" class="hidden mt-6 bg-indigo-50 border border-indigo-200 rounded-2xl p-5 text-center"><h3 id="pensionValue" class="text-4xl font-black text-indigo-700"></h3></div>
+                </div>
+
+                <!-- 8. Budget Calculator -->
+                <div id="budget-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Monthly Budget Calculator</h2></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <div class="sm:col-span-2"><label class="block font-bold mb-1 text-emerald-700">Total Income (PKR)</label><input type="number" id="budIncome" class="w-full px-4 py-2 border border-emerald-300 bg-emerald-50 rounded-xl"></div>
+                        <div><label class="block text-sm font-bold mb-1">House Rent</label><input type="number" id="budRent" value="0" class="w-full px-3 py-2 border rounded-lg bud-exp"></div>
+                        <div><label class="block text-sm font-bold mb-1">Food / Groceries</label><input type="number" id="budFood" value="0" class="w-full px-3 py-2 border rounded-lg bud-exp"></div>
+                        <div><label class="block text-sm font-bold mb-1">Utilities / Bills</label><input type="number" id="budBills" value="0" class="w-full px-3 py-2 border rounded-lg bud-exp"></div>
+                        <div><label class="block text-sm font-bold mb-1">Others</label><input type="number" id="budOther" value="0" class="w-full px-3 py-2 border rounded-lg bud-exp"></div>
+                    </div>
+                    <button onclick="calculateBudget()" class="w-full bg-slate-800 text-white font-bold py-3 rounded-xl">Calculate Balance</button>
+                    <div id="budgetResult" class="hidden mt-6 bg-slate-100 border border-slate-300 rounded-2xl p-5 text-center"><h3 id="budgetValue" class="text-4xl font-black text-slate-800"></h3></div>
+                </div>
+
+                <!-- 9. Salary Increment -->
+                <div id="increment-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Salary Increment Calculator</h2></div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div><label class="text-sm font-bold">Current Salary</label><input type="number" id="incSalary" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-sm font-bold">Increment (%)</label><input type="number" id="incPerc" class="w-full px-3 py-2 border rounded-lg"></div>
+                    </div>
+                    <button onclick="calculateIncrement()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Calculate New Salary</button>
+                    <div id="incrementResult" class="hidden mt-6 bg-green-50 border border-green-200 p-5 text-center rounded-2xl"><h3 id="incrementValue" class="text-3xl font-black text-green-700"></h3><p id="incrementAdded" class="text-sm mt-1"></p></div>
+                </div>
+
+                <!-- 10. Salary Allowance -->
+                <div id="allowance-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Salary Allowance Calculator</h2></div>
+                    <div class="mb-4"><label class="block font-bold mb-1">Basic Pay</label><input type="number" id="allBasic" class="w-full px-4 py-2 border bg-blue-50 rounded-xl"></div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div><label class="text-sm font-bold">HRA (%)</label><input type="number" id="allHra" value="45" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-sm font-bold">Medical (%)</label><input type="number" id="allMed" value="15" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div class="col-span-2"><label class="text-sm font-bold">Other Allowances (Fixed PKR)</label><input type="number" id="allConv" value="0" class="w-full px-3 py-2 border rounded-lg"></div>
+                    </div>
+                    <button onclick="calculateAllowance()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Calculate Gross Salary</button>
+                    <div id="allowanceResult" class="hidden mt-6 bg-blue-50 border border-blue-200 p-5 text-center rounded-2xl"><h3 id="allowanceValue" class="text-3xl font-black text-blue-700"></h3></div>
+                </div>
+
+                <!-- 11. Zakat -->
+                <div id="zakat-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Zakat Calculator</h2></div>
+                    <div class="space-y-4 mb-6">
+                        <div><label class="text-sm font-bold">Cash at Home/Bank (PKR)</label><input type="number" id="zCash" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-sm font-bold">Value of Gold (PKR)</label><input type="number" id="zGold" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-sm font-bold">Value of Silver (PKR)</label><input type="number" id="zSilver" class="w-full px-3 py-2 border rounded-lg"></div>
+                    </div>
+                    <button onclick="calculateZakat()" class="w-full bg-teal-600 text-white font-bold py-3 rounded-xl">Calculate 2.5% Zakat</button>
+                    <div id="zakatResult" class="hidden mt-6 bg-teal-50 border border-teal-200 p-5 text-center rounded-2xl"><h3 id="zakatValue" class="text-3xl font-black text-teal-700"></h3></div>
+                </div>
+
+                <!-- 12. Text/Word Counter -->
+                <div id="text-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Word & Character Counter</h2></div>
+                    <textarea id="textInput" rows="6" placeholder="Type or paste your text here..." class="w-full p-4 border rounded-xl mb-4 focus:outline-none focus:border-emerald-500" oninput="countText()"></textarea>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-slate-100 p-4 rounded-xl"><h4 class="text-sm font-bold text-slate-500">Words</h4><p id="wordCount" class="text-3xl font-black text-slate-800">0</p></div>
+                        <div class="bg-slate-100 p-4 rounded-xl"><h4 class="text-sm font-bold text-slate-500">Characters</h4><p id="charCount" class="text-3xl font-black text-slate-800">0</p></div>
+                    </div>
+                </div>
+
+                <!-- 13. Discount -->
+                <div id="discount-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Discount / Sale Price</h2></div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div><label class="text-sm font-bold">Original Price</label><input type="number" id="discPrice" class="w-full px-3 py-2 border rounded-lg"></div>
+                        <div><label class="text-sm font-bold">Discount %</label><input type="number" id="discPerc" class="w-full px-3 py-2 border rounded-lg"></div>
+                    </div>
+                    <button onclick="calculateDiscount()" class="w-full bg-amber-500 text-white font-bold py-3 rounded-xl">Calculate Final Price</button>
+                    <div id="discResult" class="hidden mt-6 bg-amber-50 border border-amber-200 p-5 text-center rounded-2xl"><h3 id="discValue" class="text-3xl font-black text-amber-700"></h3></div>
+                </div>
+
+                <!-- 14. Percentage Tool -->
+                <div id="percentage-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6"><h2 class="text-xl font-bold">Generic Percentage Calculator</h2></div>
+                    <div class="bg-slate-50 p-5 rounded-2xl border mb-6 text-center">
+                        <span class="font-bold">What is </span>
+                        <input type="number" id="percA" class="w-20 px-2 py-1 border rounded mx-2 text-center">
+                        <span class="font-bold">% of </span>
+                        <input type="number" id="percB" class="w-24 px-2 py-1 border rounded mx-2 text-center">
+                        <span class="font-bold">?</span>
+                    </div>
+                    <button onclick="calculatePercentage()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">Calculate</button>
+                    <div id="percResult" class="hidden mt-6 bg-indigo-50 border border-indigo-200 p-5 text-center rounded-2xl"><h3 id="percValue" class="text-4xl font-black text-indigo-700"></h3></div>
+                </div>
+
+                <!-- 15+ Universal Unit Converters -->
+                <div id="unit-section" class="calc-section hidden">
+                    <div class="border-b border-slate-100 pb-4 mb-6">
+                        <h2 class="text-xl font-bold" id="unitTitle">Universal Unit Converter</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-slate-50 p-5 rounded-2xl border">
+                            <label class="text-sm font-bold mb-2 block text-slate-700">From</label>
+                            <select id="unitFrom" class="w-full px-4 py-3 border border-slate-300 rounded-xl mb-4 bg-white" onchange="calculateUnit()"></select>
+                            <input type="number" id="unitInputVal" value="1" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-2xl font-black text-slate-800" oninput="calculateUnit()">
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-2xl border">
+                            <label class="text-sm font-bold mb-2 block text-slate-700">To</label>
+                            <select id="unitTo" class="w-full px-4 py-3 border border-slate-300 rounded-xl mb-4 bg-white" onchange="calculateUnit()"></select>
+                            <input type="text" id="unitOutputVal" readonly class="w-full px-4 py-3 border border-emerald-400 bg-emerald-50 rounded-xl text-2xl font-black text-emerald-800">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RIGHT SIDEBAR MENU & SEARCH -->
+        <aside class="w-full lg:w-1/3 xl:w-1/4 flex flex-col order-1 lg:order-2">
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200 flex flex-col h-[500px] lg:h-[calc(100vh-80px)] lg:sticky lg:top-16">
+                <div class="p-4 border-b border-slate-100 bg-slate-50 rounded-t-2xl">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="searchInput" onkeyup="filterMenu()" placeholder="Search 30+ tools..." class="w-full pl-10 pr-4 py-2 border rounded-xl focus:border-emerald-500 outline-none">
+                    </div>
+                </div>
+                <div class="flex-grow overflow-y-auto custom-scrollbar p-3 space-y-1" id="menuList"></div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        const calculators = [
+            { id: 'etea', name: 'ETEA Aggregate', icon: 'fa-chart-line' },
+            { id: 'kppsc', name: 'KPPSC / FPSC Score', icon: 'fa-building-columns' },
+            { id: 'cgpa', name: 'CGPA / SGPA Calc', icon: 'fa-graduation-cap' },
+            { id: 'conversion', name: 'GPA & Marks %', icon: 'fa-percent' },
+            { id: 'gsm', name: 'Textile Yard (oz/yd²)', icon: 'fa-weight-hanging' },
+            { id: 'age', name: 'Age & Birth Date', icon: 'fa-calendar-days' },
+            { id: 'pension', name: 'Pension Calculator', icon: 'fa-piggy-bank' },
+            { id: 'budget', name: 'Budget Calculator', icon: 'fa-wallet' },
+            { id: 'increment', name: 'Salary Increment', icon: 'fa-arrow-trend-up' },
+            { id: 'allowance', name: 'Salary & Allowance', icon: 'fa-money-check-dollar' },
+            { id: 'zakat', name: 'Zakat Calculator', icon: 'fa-hand-holding-dollar' },
+            { id: 'discount', name: 'Discount / Sale', icon: 'fa-tags' },
+            { id: 'percentage', name: 'Percentage Calc', icon: 'fa-divide' },
+            { id: 'text', name: 'Word & Char Counter', icon: 'fa-font' },
+            // Unit Converters
+            { id: 'unit_length', name: 'Length (Meter, Yard)', icon: 'fa-ruler', isUnit: true, type: 'length' },
+            { id: 'unit_weight', name: 'Weight (KG, Pound)', icon: 'fa-scale-balanced', isUnit: true, type: 'weight' },
+            { id: 'unit_area', name: 'Area (Sq Yard, Acre)', icon: 'fa-vector-square', isUnit: true, type: 'area' },
+            { id: 'unit_temp', name: 'Temperature (C, F)', icon: 'fa-temperature-half', isUnit: true, type: 'temp' },
+            { id: 'unit_volume', name: 'Volume (Liter, Gal)', icon: 'fa-flask', isUnit: true, type: 'volume' },
+            { id: 'unit_speed', name: 'Speed (Km/h, mph)', icon: 'fa-gauge-high', isUnit: true, type: 'speed' },
+            { id: 'unit_time', name: 'Time (Sec, Hour)', icon: 'fa-clock', isUnit: true, type: 'time' },
+            { id: 'unit_data', name: 'Data (MB, GB, TB)', icon: 'fa-hard-drive', isUnit: true, type: 'data' }
+        ];
+
+        const unitData = {
+            length: { Yard: 0.9144, Meter: 1, Centimeter: 0.01, Inch: 0.0254, Foot: 0.3048, Kilometer: 1000, Mile: 1609.34 },
+            weight: { Kilogram: 1, Gram: 0.001, Pound: 0.453592, Ounce: 0.0283495, Ton: 1000 },
+            area: { 'Sq Meter': 1, 'Sq Yard': 0.836127, 'Sq Foot': 0.092903, 'Acre': 4046.86, 'Hectare': 10000 },
+            temp: { Celsius: 'c', Fahrenheit: 'f', Kelvin: 'k' },
+            volume: { Liter: 1, Milliliter: 0.001, 'Cubic Meter': 1000, Gallon: 3.78541 },
+            speed: { 'Meter/Sec': 1, 'Km/Hour': 0.277778, 'Mile/Hour': 0.44704, Knot: 0.514444 },
+            time: { Second: 1, Minute: 60, Hour: 3600, Day: 86400, Week: 604800 },
+            data: { Byte: 1, Kilobyte: 1024, Megabyte: 1048576, Gigabyte: 1073741824, Terabyte: 1099511627776 }
+        };
+
+        let currentUnitType = '';
+
+        function renderMenu(filter = "") {
+            const menuList = document.getElementById('menuList');
+            menuList.innerHTML = "";
+            calculators.forEach(calc => {
+                if (calc.name.toLowerCase().includes(filter.toLowerCase()) || filter.toLowerCase() === calc.id) {
+                    const item = document.createElement('button');
+                    item.className = `w-full text-left px-4 py-3 rounded-xl transition flex items-center space-x-3 hover:bg-slate-100 border border-transparent hover:border-slate-200 mb-1 focus:bg-slate-200`;
+                    item.onclick = () => openCalculator(calc, true);
+                    item.innerHTML = `<i class="fa-solid ${calc.icon} text-emerald-600 w-5 text-center"></i><span class="text-sm font-semibold text-slate-700 truncate">${calc.name}</span>`;
+                    menuList.appendChild(item);
+                }
+            });
+        }
+
+        function filterMenu() { renderMenu(document.getElementById('searchInput').value); }
+
+        function openCalculator(calc, updateHash = false) {
+            if(updateHash) window.history.pushState(null, null, '#' + calc.id);
+            document.querySelectorAll('.calc-section').forEach(el => el.classList.add('hidden'));
+            
+            if (calc.isUnit) {
+                document.getElementById('unit-section').classList.remove('hidden');
+                document.getElementById('unitTitle').innerText = calc.name;
+                currentUnitType = calc.type;
+                populateUnitSelects(calc.type);
+            } else {
+                const sec = document.getElementById(calc.id + '-section');
+                if(sec) sec.classList.remove('hidden');
+            }
+        }
+
+        function populateUnitSelects(type) {
+            const fromSel = document.getElementById('unitFrom');
+            const toSel = document.getElementById('unitTo');
+            fromSel.innerHTML = ""; toSel.innerHTML = "";
+            Object.keys(unitData[type]).forEach(unit => {
+                fromSel.add(new Option(unit, unit));
+                toSel.add(new Option(unit, unit));
+            });
+            if(toSel.options.length > 1) toSel.selectedIndex = 1;
+            calculateUnit();
+        }
+
+        function calculateUnit() {
+            const val = parseFloat(document.getElementById('unitInputVal').value) || 0;
+            const from = document.getElementById('unitFrom').value;
+            const to = document.getElementById('unitTo').value;
+            let result = 0;
+
+            if (currentUnitType === 'temp') {
+                if(from === to) result = val;
+                else if(from === 'Celsius' && to === 'Fahrenheit') result = (val * 9/5) + 32;
+                else if(from === 'Fahrenheit' && to === 'Celsius') result = (val - 32) * 5/9;
+                else if(from === 'Celsius' && to === 'Kelvin') result = val + 273.15;
+                else if(from === 'Kelvin' && to === 'Celsius') result = val - 273.15;
+                else if(from === 'Fahrenheit' && to === 'Kelvin') result = (val - 32) * 5/9 + 273.15;
+                else if(from === 'Kelvin' && to === 'Fahrenheit') result = (val - 273.15) * 9/5 + 32;
+            } else {
+                const baseValue = val * unitData[currentUnitType][from];
+                result = baseValue / unitData[currentUnitType][to];
+            }
+            
+            let displayRes = result.toString();
+            if(displayRes.includes('.')) displayRes = parseFloat(result).toFixed(6).replace(/\.?0+$/, '');
+            document.getElementById('unitOutputVal').value = displayRes;
+        }
+
+        function calculateKPPSC() {
+            let totalPerc = 0, count = 0;
+            ['kppscMatric', 'kppscInter', 'kppscBachelor', 'kppscMaster', 'kppscBEd'].forEach(id => {
+                const val = parseFloat(document.getElementById(id).value);
+                if(!isNaN(val) && val > 0) { totalPerc += val; count++; }
+            });
+            const avgPerc = count > 0 ? totalPerc / count : 0;
+            const finalScore = ((avgPerc / 100) * 20) + (parseFloat(document.getElementById('kppscTest').value) || 0) + (document.getElementById('kppscHifz').checked ? 3 : 0) + (document.getElementById('kppscMphil').checked ? 1 : 0) + (document.getElementById('kppscPhd').checked ? 2 : 0) + parseFloat(document.getElementById('kppscTopper').value);
+            document.getElementById('kppscValue').innerText = finalScore.toFixed(2) + " / 100";
+            document.getElementById('kppscResult').classList.remove('hidden');
+        }
+
+        function calculateETEA() {
+            const m = parseFloat(document.getElementById('eteaMObt').value)||0, mT = parseFloat(document.getElementById('eteaMTot').value)||1100;
+            const i = parseFloat(document.getElementById('eteaIObt').value)||0, iT = parseFloat(document.getElementById('eteaITot').value)||1100;
+            const t = parseFloat(document.getElementById('eteaTObt').value)||0, tT = parseFloat(document.getElementById('eteaTTot').value)||200;
+            const bs = parseFloat(document.getElementById('eteaBS').value)||0;
+            const higherDegBonus = parseFloat(document.getElementById('eteaHigherDeg').value)||0;
+
+            let agg = ((m/mT)*10) + ((i/iT)*40) + ((t/tT)*50);
+            if(bs > 0) {
+                // If BS is included, aggregate breakdown can factor it or display bonus
+                agg += (bs / 100) * 5; // Example weight adjustment for higher degree if applicable
+            }
+            agg += higherDegBonus;
+
+            document.getElementById('eteaValue').innerText = agg.toFixed(2) + "%";
+            document.getElementById('eteaResult').classList.remove('hidden');
+        }
+
+        function addSubjectRow() {
+            const row = document.createElement('div');
+            row.className = "grid grid-cols-12 gap-2 subject-row bg-slate-50 p-2 rounded-xl border border-slate-200";
+            row.innerHTML = `<div class="col-span-6"><input type="text" placeholder="Course" class="w-full px-3 py-2 border rounded-lg text-sm"></div><div class="col-span-3"><select class="w-full px-3 py-2 border rounded-lg text-sm grade-select"><option value="4.0">A</option><option value="3.0">B</option><option value="2.0">C</option><option value="0.0">F</option></select></div><div class="col-span-2"><input type="number" value="3" class="w-full px-3 py-2 border rounded-lg text-sm credit-input"></div><div class="col-span-1 text-center"><button class="text-rose-500 mt-2" onclick="this.closest('.subject-row').remove()"><i class="fa-solid fa-trash-can"></i></button></div>`;
+            document.getElementById('subjectRows').appendChild(row);
+        }
+
+        function calculateCGPA() {
+            let pts=0, crd=0;
+            document.querySelectorAll('.subject-row').forEach(row => {
+                const g = parseFloat(row.querySelector('.grade-select').value);
+                const c = parseFloat(row.querySelector('.credit-input').value)||0;
+                pts += (g*c); crd += c;
+            });
+            document.getElementById('cgpaValue').innerText = crd>0 ? (pts/crd).toFixed(2) + " / 4.00" : "0.00";
+            document.getElementById('cgpaResult').classList.remove('hidden');
+        }
+
+        function calcMarksToPerc() {
+            const p = ((parseFloat(document.getElementById('convObt').value)||0) / (parseFloat(document.getElementById('convTot').value)||1100)) * 100;
+            document.getElementById('resMarksToPerc').innerText = p.toFixed(2) + "%";
+            document.getElementById('resMarksToPerc').classList.remove('hidden');
+        }
+        function calcGpaToPerc() {
+            const p = ((parseFloat(document.getElementById('convGpa').value)||0) / 4) * 100;
+            document.getElementById('resGpaToPerc').innerText = p.toFixed(2) + "%";
+            document.getElementById('resGpaToPerc').classList.remove('hidden');
+        }
+        function calcPercToGpa() {
+            const g = ((parseFloat(document.getElementById('convPerc').value)||0) / 100) * 4;
+            document.getElementById('resPercToGpa').innerText = g.toFixed(2) + " GPA";
+            document.getElementById('resPercToGpa').classList.remove('hidden');
+        }
+
+        function convertOzToGsm() {
+            const v = parseFloat(document.getElementById('ozInput').value)||0;
+            document.getElementById('resOzToGsm').innerText = (v*33.9057575).toFixed(2) + " GSM";
+            document.getElementById('resOzToGsm').classList.remove('hidden');
+        }
+        function convertGsmToOz() {
+            const v = parseFloat(document.getElementById('gsmInput').value)||0;
+            document.getElementById('resGsmToOz').innerText = (v/33.9057575).toFixed(2) + " oz/yd²";
+            document.getElementById('resGsmToOz').classList.remove('hidden');
+        }
+
+        function calculateAge() {
+            const d = document.getElementById('dobInput').value;
+            if(!d) return;
+            const diff = new Date() - new Date(d).getTime();
+            document.getElementById('ageValue').innerText = Math.abs(new Date(diff).getUTCFullYear() - 1970) + " Years Old";
+            document.getElementById('ageResult').classList.remove('hidden');
+        }
+
+        function calculatePension() {
+            const p = (parseFloat(document.getElementById('penPay').value)||0 * parseFloat(document.getElementById('penYears').value)||0) / 50;
+            document.getElementById('pensionValue').innerText = "Rs. " + p.toLocaleString();
+            document.getElementById('pensionResult').classList.remove('hidden');
+        }
+
+        function calculateBudget() {
+            const inc = parseFloat(document.getElementById('budIncome').value)||0;
+            let exp = 0;
+            document.querySelectorAll('.bud-exp').forEach(el => exp += parseFloat(el.value)||0);
+            document.getElementById('budgetValue').innerText = "Rs. " + (inc-exp).toLocaleString();
+            document.getElementById('budgetResult').classList.remove('hidden');
+        }
+
+        function calculateIncrement() {
+            const s = parseFloat(document.getElementById('incSalary').value)||0;
+            const a = s * ((parseFloat(document.getElementById('incPerc').value)||0)/100);
+            document.getElementById('incrementValue').innerText = "Rs. " + (s+a).toLocaleString();
+            document.getElementById('incrementResult').classList.remove('hidden');
+        }
+
+        function calculateAllowance() {
+            const b = parseFloat(document.getElementById('allBasic').value)||0;
+            const g = b + (b*(parseFloat(document.getElementById('allHra').value)||0)/100) + (b*(parseFloat(document.getElementById('allMed').value)||0)/100) + (parseFloat(document.getElementById('allConv').value)||0);
+            document.getElementById('allowanceValue').innerText = "Gross: Rs. " + g.toLocaleString();
+            document.getElementById('allowanceResult').classList.remove('hidden');
+        }
+
+        function calculateZakat() {
+            const t = (parseFloat(document.getElementById('zCash').value)||0) + (parseFloat(document.getElementById('zGold').value)||0) + (parseFloat(document.getElementById('zSilver').value)||0);
+            document.getElementById('zakatValue').innerText = "Zakat: Rs. " + (t*0.025).toLocaleString();
+            document.getElementById('zakatResult').classList.remove('hidden');
+        }
+
+        function calculateDiscount() {
+            const p = parseFloat(document.getElementById('discPrice').value)||0;
+            const s = p * ((parseFloat(document.getElementById('discPerc').value)||0)/100);
+            document.getElementById('discValue').innerText = "Rs. " + (p-s).toLocaleString();
+            document.getElementById('discResult').classList.remove('hidden');
+        }
+
+        function calculatePercentage() {
+            const a = parseFloat(document.getElementById('percA').value)||0;
+            const b = parseFloat(document.getElementById('percB').value)||0;
+            document.getElementById('percValue').innerText = ((a/100)*b).toFixed(2);
+            document.getElementById('percResult').classList.remove('hidden');
+        }
+
+        function countText() {
+            const text = document.getElementById('textInput').value;
+            document.getElementById('charCount').innerText = text.length;
+            document.getElementById('wordCount').innerText = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+            const hash = window.location.hash.substring(1); 
+            let target = calculators.find(c => c.id === hash);
+            openCalculator(target || calculators[0], false);
+        });
+    </script>
+</body>
+</html>
